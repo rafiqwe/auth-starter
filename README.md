@@ -6,59 +6,15 @@
 ![nextjs](https://img.shields.io/badge/Next.js-App%20Router-black)
 ![typescript](https://img.shields.io/badge/TypeScript-Ready-blue)
 
-**AuthKit Pro** is a production-focused authentication starter toolkit for **Next.js App Router** that dramatically reduces setup time for authentication systems.
+**AuthKit Pro** is a production-ready authentication CLI for **Next.js App Router** that scaffolds a complete authentication system in minutes — not hours.
 
-# Installation
-
-```bash
-npx authkit-pro init
-```
-
-It provides:
+## It generates everything you need:
 
 - Preconfigured OAuth providers
-- Database integration
+- Database integration (Prisma or MongoDB)
 - Middleware protection
 - Login UI scaffolding
 - Type-safe developer experience
-
-Designed for developers who want authentication working in minutes — not hours.
-
----
-
-# ✨ Features
-
-## 🔐 Authentication Providers
-
-- Google OAuth
-- GitHub OAuth
-- Credentials (Email / Password)
-
-## 🗄 Database
-
-- PostgreSQL (v1 default)
-- MongoDB _(coming soon)_
-
-## 🧩 UI Components (TypeScript)
-
-- Login Page
-- Profile Component
-- Sign Out Button
-
-## 🛡 Security
-
-- Optional route middleware protection
-- Secure session handling
-- Env auto configuration support
-
-## ⚙️ Developer Experience
-
-- Built for App Router
-- Fully typed
-- Modular provider system
-- Easy config injection
-
----
 
 # 📦 Installation
 
@@ -66,13 +22,62 @@ Designed for developers who want authentication working in minutes — not hours
 npx authkit-pro init
 ```
 
+Answer a few prompts and your authentication system is ready.
+
+# ✨ What It Generates
+
+## 🔐 Authentication Providers
+
+- Google OAuth
+- GitHub OAuth
+- Facebook OAuth
+- Credentials (Email / Password)
+
+## 🗄 Database
+
+Choose your database during setup:
+
+- PostgreSQL (Prisma ORM)
+- MongoDB (Mongoose)
+- No database (OAuth only)
+
+## 🧩 UI Components (TypeScript)
+
+- Login Page
+- Profile Component
+- Sign Out Button
+
+Clean, minimal, production-ready UI.
+
+## 🛡 Security Features
+
+- Optional route middleware protection
+- Secure JWT session handling
+- Environment variable auto-generation
+- Type-safe configuration
+
+## ⚙️ Developer Experience
+
+- Built specifically for Next.js App Router
+- Fully typed
+- Modular provider system
+- Config injection support
+- Clean folder structure
+- CLI-based setup flow
+
 ---
 
-# 🚀 Quick Start
+### 🚀 Quick Start
 
-## 1️⃣ Environment Setup
+After running:
 
-Create `.env.local`
+```bash
+npx authkit-pro init
+```
+
+## 1️⃣ Fill Environment Variables
+
+A .env file is generated automatically.
 
 ```env
 AUTH_SECRET=your_secret
@@ -83,12 +88,14 @@ GOOGLE_CLIENT_SECRET=your_secret
 GITHUB_CLIENT_ID=your_id
 GITHUB_CLIENT_SECRET=your_secret
 
-DATABASE_URL=postgres_connection_string
+DATABASE_URL=postgres_connection_string or mongodb_connection_string
 ```
 
 ---
 
-## 2️⃣ Configure Auth
+## 2️⃣ Auth Route Setup
+
+AuthKit generates your auth configuration automatically.
 
 ```ts
 // app/api/auth/[...nextauth]/route.ts
@@ -103,9 +110,17 @@ export { handler as GET, handler as POST };
 
 ---
 
-## 4️⃣ Enable Middleware Protection
+## 4️⃣ Optional Middleware Protection
 
-# 🧱 Components
+If you choose middleware protection during setup, it will automatically generate:
+
+# 🧱 Generated Components
+
+AuthKit automatically scaffolds:
+
+Auto generated `Profile` component in `@/components/auth/Profile`.
+Auto generated `SignOutButton` component in `@/components/auth/SignOutButton`.
+Auto generated `Login` component in `@/app/Login/page.tsx`.
 
 Handles logout flow automatically.
 
@@ -124,7 +139,6 @@ _(Add your UI screenshots here)_
 
 # 🎯 Roadmap
 
-- MongoDB Adapter
 - More OAuth Providers
 - CLI Auth Generator
 - Theme Customization
@@ -161,6 +175,7 @@ MIT License
 
 Full-Stack Developer focused on frontend systems and developer tooling.
 
+- Scaleable Backend Architecture and Database Integration
 - Building UI systems
 - Experimenting with AI tooling
 - Creating production-ready dev utilities
