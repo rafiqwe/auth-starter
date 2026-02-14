@@ -3,7 +3,7 @@ import { GoogleProvider } from "./google.js";
 import { GitHubProvider } from "./github.js";
 import { FacebookProvider } from "./facebook.js";
 import { Provider, Database } from "../../types/config.js";
-import { CredentialsProvider } from "./creadential.js";
+import { CredentialsProvider } from "./credential.js";
 const registry: Record<Provider, ProviderModule> = {
   google: (options?: any) => GoogleProvider(options),
   github: (options?: any) => GitHubProvider(options),
