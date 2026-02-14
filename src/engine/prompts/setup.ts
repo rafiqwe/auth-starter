@@ -20,7 +20,7 @@ export async function runSetup(): Promise<AuthCLIConfig> {
     message: "Database integration",
     options: [
       { value: "postgres", label: "PostgreSQL" },
-      // { value: "mongodb", label: "MongoDB" },
+      { value: "mongodb", label: "MongoDB" },
       { value: "none", label: "None" },
     ],
   });
