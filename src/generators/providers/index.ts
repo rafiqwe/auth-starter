@@ -2,16 +2,15 @@ import { ProviderModule } from "../../types/provider.js";
 import { GoogleProvider } from "./google.js";
 import { GitHubProvider } from "./github.js";
 import { FacebookProvider } from "./facebook.js";
-import { Provider } from "../../types/config.js";
+import { Provider, Database } from "../../types/config.js";
 import { CredentialsProvider } from "./creadential.js";
-
 const registry: Record<Provider, ProviderModule> = {
-  google: GoogleProvider,
-  github: GitHubProvider,
-  facebook: FacebookProvider,
-  credentials: CredentialsProvider,
+  google: (options?: any) => GoogleProvider(options),
+  github: (options?: any) => GitHubProvider(options),
+  facebook: (options?: any) => FacebookProvider(options),
+  credentials: (options?: any) => CredentialsProvider(options),
 };
 
-export function loadProviders(selected: Provider[]) {
-  return selected.map((p) => registry[p]);
+export function loadProviders(selected: Provider[], options?: Database) {
+  return selected.map((p) => registry[p](options));
 }
