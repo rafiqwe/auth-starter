@@ -1,7 +1,25 @@
 import { multiselect, confirm, select } from "@clack/prompts";
-import { AuthCLIConfig } from "../../types/config.js";
+import {
+  AuthCLIConfig,
+  Database,
+  Engine,
+  Provider,
+} from "../../types/config.js";
 
 export async function runSetup(): Promise<AuthCLIConfig> {
+  const engine = await select({
+    message: "Choose auth engine",
+    options: [
+      { value: "authjs", label: "Auth.js" },
+      { value: "nextauth", label: "NextAuth" },
+      // { value: "betterauth", label: "Better Auth" },
+    ],
+  });
+
+  // if (engine === "authjs") {
+
+  // }
+
   const providers = await multiselect({
     message: "Select authentication providers",
     options: [
@@ -11,11 +29,14 @@ export async function runSetup(): Promise<AuthCLIConfig> {
     ],
     required: true,
   });
+  const providerArry = providers.valueOf() as Provider[];
 
+  // Middleware
   const middleware = await confirm({
     message: "Enable route protection middleware?",
   });
 
+  // Database
   const database = await select({
     message: "Database integration",
     options: [
@@ -25,14 +46,16 @@ export async function runSetup(): Promise<AuthCLIConfig> {
     ],
   });
 
+  // UI
   const ui = await confirm({
     message: "Generate login UI components?",
   });
 
   return {
-    providers: providers as any,
+    engine: engine as Engine,
+    providers: providers as Provider[],
     middleware: middleware as boolean,
-    database: database as any,
+    database: database as Database,
     ui: ui as boolean,
   };
 }
