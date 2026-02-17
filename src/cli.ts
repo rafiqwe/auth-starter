@@ -14,6 +14,7 @@ import { injectUserType } from "./core/injectUserType.js";
 import chalk from "chalk";
 import { mongoDbConfig } from "./generators/database/mongodb/mongoDbConfig.js";
 import { mongodbDeps } from "./generators/database/mongodb/deps.js";
+import { injectAuthConfigAuthjs } from "./core/authjs-core/injectAuthCofig.js";
 
 // import { detectEnv } from "./engine/detect/env.js";
 
@@ -21,6 +22,7 @@ async function main() {
   intro("Welcome to AuthKit Pro");
   // const env = await detectEnv();
   const config = await runSetup();
+  console.log(config);
   const targetDir = process.cwd();
   const ifCredential = config.providers.filter((p) => p !== "credentials");
   const ifCredentialProvider = config.providers.filter(
@@ -28,7 +30,11 @@ async function main() {
   );
 
   // inject auth config
-  injectAuthConfig(config, config.database);
+  if (config.engine === "authjs") {
+    injectAuthConfigAuthjs(config);
+  } else {
+    injectAuthConfig(config);
+  }
   if (ifCredentialProvider) {
     injectUserType();
   }
@@ -69,11 +75,12 @@ async function main() {
 
   // install dependencies
   const postgresDeps = config.database === "postgres" ? prismaDeps() : [];
-  const mongoDbDep = config.database === "mongodb" ? mongodbDeps() : [];
+  const mongoDbDep =
+    config.database === "mongodb" ? mongodbDeps(config.engine) : [];
 
   await installDeps({
     deps: [...deps, ...postgresDeps, ...mongoDbDep],
-    ans: config.database,
+    engine: config.engine,
   });
 
   console.log(chalk.cyan("Next steps:"));
