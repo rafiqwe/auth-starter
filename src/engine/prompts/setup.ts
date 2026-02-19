@@ -15,11 +15,7 @@ export async function runSetup(): Promise<AuthCLIConfig> {
       // { value: "betterauth", label: "Better Auth" },
     ],
   });
-
-  // if (engine === "authjs") {
-
-  // }
-
+  
   const providers = await multiselect({
     message: "Select authentication providers",
     options: [
@@ -29,12 +25,14 @@ export async function runSetup(): Promise<AuthCLIConfig> {
     ],
     required: true,
   });
-  const providerArry = providers.valueOf() as Provider[];
 
-  // Middleware
-  const middleware = await confirm({
-    message: "Enable route protection middleware?",
-  });
+  let middleware;
+  if (engine === "nextauth") {
+    // Middleware
+    middleware = await confirm({
+      message: "Enable route protection middleware?",
+    });
+  }
 
   // Database
   const database = await select({
