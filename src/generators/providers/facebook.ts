@@ -1,6 +1,6 @@
 import { ProviderModule } from "../../types/provider.js";
 
-export const FacebookProvider: ProviderModule = (options) => {
+export const FacebookProvider: ProviderModule = () => {
   return {
     name: "facebook",
 
