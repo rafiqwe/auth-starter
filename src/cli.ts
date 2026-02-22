@@ -15,6 +15,7 @@ import chalk from "chalk";
 import { mongoDbConfig } from "./generators/database/mongodb/mongoDbConfig.js";
 import { mongodbDeps } from "./generators/database/mongodb/deps.js";
 import { injectAuthConfigAuthjs } from "./core/authjs-core/injectAuthCofig.js";
+import { uiDeps } from "./generators/ui/UIdeps.js";
 
 // import { detectEnv } from "./engine/detect/env.js";
 
@@ -22,7 +23,6 @@ async function main() {
   intro("Welcome to AuthKit Pro");
   // const env = await detectEnv();
   const config = await runSetup();
-  console.log(config);
   const targetDir = process.cwd();
   const ifCredential = config.providers.filter((p) => p !== "credentials");
   const ifCredentialProvider = config.providers.filter(
@@ -77,10 +77,12 @@ async function main() {
   const postgresDeps = config.database === "postgres" ? prismaDeps() : [];
   const mongoDbDep =
     config.database === "mongodb" ? mongodbDeps(config.engine) : [];
+  const UIdeps = config.ui ? uiDeps() : [];
 
   await installDeps({
-    deps: [...deps, ...postgresDeps, ...mongoDbDep],
+    deps: [...deps, ...postgresDeps, ...mongoDbDep, ...UIdeps],
     engine: config.engine,
+    db: config.database
   });
 
   console.log(chalk.cyan("Next steps:"));
